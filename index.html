@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneLevel Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #1e1e2f;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        header {
+            background-color: #272740;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: #ff5c5c;
+        }
+
+        nav a {
+            margin-left: 20px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff5c5c;
+        }
+
+        section {
+            padding: 60px 40px;
+        }
+
+        .hero {
+            text-align: center;
+            background: url('Jumpix.png') no-repeat center/cover;
+            color: #fff;
+            padding: 150px 20px;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+        }
+
+        .about, .contact {
+            text-align: center;
+        }
+
+        .games {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .game-card {
+    display: block; /* permet de rendre tout le bloc cliquable */
+    background-color: #2e2e4d;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    color: inherit; /* texte garde la couleur */
+    text-decoration: none; /* supprime le soulignement */
+}
+
+.game-card:hover {
+    transform: scale(1.05);
+}
+
+.game-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.game-card h3 {
+    margin: 15px;
+    color: #ff5c5c;
+}
+
+.game-card p {
+    margin: 0 15px 15px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+.developers {
+    text-align: center;
+    padding: 60px 40px;
+}
+
+.developers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.developer-card {
+    background-color: #2e2e4d;
+    border-radius: 10px;
+    overflow: hidden;
+    padding-bottom: 15px;
+    transition: transform 0.3s;
+}
+
+.developer-card:hover {
+    transform: scale(1.05);
+}
+
+.developer-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #ff5c5c;
+}
+
+.developer-card h3 {
+    margin: 15px 0 5px 0;
+    color: #ff5c5c;
+}
+
+.developer-card p {
+    margin: 0 15px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+        footer {
+            background-color: #272740;
+            text-align: center;
+            padding: 20px;
+            color: #aaa;
+        }
+
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .contact input, .contact textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .contact button {
+            padding: 10px;
+            background-color: #ff5c5c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact button:hover {
+            background-color: #e04b4b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>OneLevel Studio</h1>
+        <nav>
+            <a href="#about">À propos</a>
+            <a href="#games">Jeux</a>
+            <a href="#developers">Développeurs</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Bienvenue chez OneLevel Studio</h2>
+        <p>Nous créons des expériences de jeu inoubliables.</p>
+    </section>
+
+    <section class="about" id="about">
+        <h2>À propos de nous</h2>
+        <p>OneLevel Studio est un studio de développement de jeux vidéo uniques et immersifs.</p>
+    </section>
+
+<section class="games" id="games">
+    <h2>Nos jeux</h2>
+    <a href="https://moi14212869.github.io/Jumpix/" class="game-card" target="_blank">
+        <img src="logoJumpix.jpg" alt="Jumpix">
+        <h3>Jumpix</h3>
+        <p>Un jeu de plateforme.</p>
+    </a>
+    <a href="https://moi14212869.github.io/clic/" class="game-card" target="_blank">
+        <img src="clic.png" alt="Clic">
+        <h3>Clic</h3>
+        <p>Un petit cookie cliqueur.</p>
+    </a>
+</section>
+<section class="developers" id="developers">
+    <h2>Nos développeurs</h2>
+    <div class="developers-grid">
+        <div class="developer-card">
+            <img src="pp.jpg" alt="Développeur 1">
+            <h3>Eliott</h3>
+            <p>Lead Developer & Designer</p>
+        </div>
+        <div class="developer-card">
+            <img src="pp.jpg" alt="Développeur 2">
+            <h3>Leonie</h3>
+            <p>Graphiste</p>
+        </div>
+        <div class="developer-card">
+            <img src="pp.jpg" alt="Développeur 3">
+            <h3>Maxence</h3>
+            <p>QA tester</p>
+        </div>
+    </div>
+</section>
+
+    <section class="contact" id="contact">
+        <h2>Contactez-nous</h2>
+        <form>
+            <input type="text" placeholder="Nom" required>
+            <input type="email" placeholder="Email" required>
+            <textarea placeholder="Votre message" rows="5" required></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
+
+    <footer>
+        &copy; 2026 OneLevel Studio. Tous droits réservés.
+    </footer>
+</body>
+</html>
