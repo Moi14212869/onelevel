@@ -150,6 +150,43 @@
     font-size: 0.9rem;
     color: #ccc;
 }
+.apps {
+    padding: 60px 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.app-card {
+    display: block;
+    background-color: #2e2e4d;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    color: inherit;
+    text-decoration: none;
+}
+
+.app-card:hover {
+    transform: scale(1.05);
+}
+
+.app-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.app-card h3 {
+    margin: 15px;
+    color: #ff5c5c;
+}
+
+.app-card p {
+    margin: 0 15px 15px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
 
         footer {
             background-color: #272740;
@@ -194,6 +231,7 @@
         <nav>
             <a href="#about">À propos</a>
             <a href="#games">Jeux</a>
+            <a href="#apps">Applications</a>
             <a href="#developers">Développeurs</a>
             <a href="#contact">Contact</a>
         </nav>
@@ -247,6 +285,21 @@
         </div>
     </div>
 </section>
+<section class="apps" id="apps">
+    <h2>Nos applications</h2>
+
+    <a href="https://exemple.github.io/app1/" class="app-card" target="_blank">
+        <img src="app1.png" alt="Application 1">
+        <h3>OneNote Mini</h3>
+        <p>Une application simple pour prendre des notes.</p>
+    </a>
+
+    <a href="https://exemple.github.io/app2/" class="app-card" target="_blank">
+        <img src="app2.png" alt="Application 2">
+        <h3>Timer Pro</h3>
+        <p>Un minuteur rapide et efficace.</p>
+    </a>
+</section>
 
     <section class="contact" id="contact">
         <h2>Contactez-nous</h2>
@@ -263,6 +316,7 @@
     </footer>
 </body>
 </html>
+
 
 
 
