@@ -327,6 +327,13 @@
     <h2>Sortie de NEXA</h2>
     <p>La nouvelle IA arrive dans :</p>
     <div id="timer">Chargement...</div>
+<div id="nexa-link" style="display:none; margin-top:20px;">
+    <a href="https://TON-LIEN-IA-ICI.com" target="_blank"
+       style="padding:12px 25px; background:#ff5c5c; color:white; border-radius:8px; font-weight:bold;">
+        👉 Accéder à NEXA
+    </a>
+</div>
+
 </section>
 
 <section class="games" id="games">
@@ -427,9 +434,11 @@ function updateCountdown() {
     const distance = targetDate - now;
 
     if (distance < 0) {
-        document.getElementById("timer").innerHTML = "🚀 NEXA est disponible !";
-        return;
-    }
+    document.getElementById("timer").innerHTML = "🚀 NEXA est disponible !";
+    document.getElementById("nexa-link").style.display = "block";
+    return;
+}
+
 
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -446,6 +455,7 @@ updateCountdown();
 
 </body>
 </html>
+
 
 
 
