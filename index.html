@@ -298,6 +298,54 @@
     color: #fff;
     letter-spacing: 1px;
 }
+        .partners {
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    justify-items: center;
+}
+
+.partner-card {
+    display: block;
+    max-width: 300px;
+    background-color: #2e2e4d;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    color: inherit;
+    text-decoration: none;
+}
+
+.partner-card:hover {
+    transform: scale(1.06);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+
+.partner-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    background: #1e1e2f;
+    padding: 15px;
+}
+
+.partner-card h3 {
+    margin: 15px;
+    color: #ff5c5c;
+}
+
+.partner-card p {
+    margin: 0 15px 20px;
+    font-size: 0.95rem;
+    color: #ccc;
+}
+
 
     </style>
 </head>
@@ -402,6 +450,25 @@
         </div>
     </div>
 </section>
+    <section class="partners" id="partners">
+    <h2>Notre site partenaire</h2>
+
+    <div class="partners-grid">
+        <a href="https://moi14212869.github.io/Fenyx/" 
+           class="partner-card" 
+           target="_blank" 
+           rel="noopener noreferrer">
+           
+            <img src="https://moi14212869.github.io/Fenyx/logo2.png" 
+                 alt="Logo de l'équipe esport Fenyx Esport" 
+                 loading="lazy">
+
+            <h3>Fenyx Esport</h3>
+            <p>équipe esport sur Brawl Stars 🔥</p>
+        </a>
+    </div>
+</section>
+
     <section class="contact" id="contact">
         <h2>Contactez-nous</h2>
 <form action="https://getform.io/f/aroxgnnb" method="POST">
@@ -459,6 +526,7 @@ updateCountdown();
 
 </body>
 </html>
+
 
 
 
