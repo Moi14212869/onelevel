@@ -371,19 +371,7 @@
         <h2>À propos de nous</h2>
         <p>OneLevel Studio est un studio de développement de jeux vidéo uniques et immersifs. Nous nous sommes également diversifiés dans le web, en créant des projets expérimentaux comme des outils en ligne ou des sites interactifs</p>
     </section>
-<section class="countdown">
-    <h2>Sortie de NEXA</h2>
-    <p>La nouvelle IA arrive dans :</p>
-    <div id="timer">Chargement...</div>
-<div id="nexa-link" style="display:none; margin-top:20px;">
-    <a href="moi14212869.github.io/nexa/" target="_blank"
-       style="padding:12px 25px; background:#ff5c5c; color:white; border-radius:8px; font-weight:bold;">
-        👉 Accéder à NEXA
-    </a>
-</div>
-
-</section>
-
+    
 <section class="games" id="games">
     <h2>Nos jeux</h2>
     <a href="https://moi14212869.github.io/Jumpix/" class="game-card" target="_blank">
@@ -518,34 +506,9 @@
              style="width: 50px; height: 50px; border-radius: 10px;">
     </a>
     </footer>
-    <script>
-function updateCountdown() {
-    const targetDate = new Date("2026-03-05T15:00:00+01:00").getTime();
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-
-    if (distance < 0) {
-    document.getElementById("timer").innerHTML = "🚀 NEXA est disponible !";
-    document.getElementById("nexa-link").style.display = "block";
-    return;
-}
-
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    document.getElementById("timer").innerHTML =
-        `${days}j ${hours}h ${minutes}m ${seconds}s`;
-}
-
-setInterval(updateCountdown, 1000);
-updateCountdown();
-</script>
-
 </body>
 </html>
+
 
 
 
