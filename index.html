@@ -345,8 +345,26 @@
     font-size: 0.95rem;
     color: #ccc;
 }
+.score {
+    text-align: center;
+    background-color: #272740;
+    padding: 60px 20px;
+}
 
+.score h2 {
+    font-size: 2.5rem;
+    color: #ff5c5c;
+    margin-bottom: 15px;
+}
 
+#scoreValue {
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: #1e1e2f;
+    display: inline-block;
+    padding: 15px 25px;
+    border-radius: 10px;
+}
     </style>
 </head>
 <body>
@@ -371,7 +389,10 @@
         <h2>À propos de nous</h2>
         <p>OneLevel Studio est un studio de développement de jeux vidéo uniques et immersifs. Nous nous sommes également diversifiés dans le web, en créant des projets expérimentaux comme des outils en ligne ou des sites interactifs</p>
     </section>
-    
+    <section class="score">
+        <h2>Votre score</h2>
+        <p id="scoreValue">0 pts</p>
+    </section>
 <section class="games" id="games">
     <h2>Nos jeux</h2>
     <a href="https://moi14212869.github.io/Jumpix/" class="game-card" target="_blank">
@@ -511,6 +532,9 @@
         let clic = parseInt(localStorage.getItem("number")) || 0;
         let auto = parseInt(localStorage.getItem("autoClick")) || 0;
         let kill = parseInt(localStorage.getItem("kill")) || 0;
+        let score = parseInt(localStorage.getItem("score")) || 0;
+        let pts = party + clic + auto + kill + score;
+        document.getElementById("scoreValue").textContent = pts + " pts";
     </script>
 </body>
 </html>
