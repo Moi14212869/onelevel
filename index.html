@@ -14,41 +14,71 @@
 
   gtag('config', 'G-BE6NKP5G59');
 </script>
-    <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-  import { getFirestore, doc, setDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+ <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAtox4-sYkd_YLYzZzjih0oak9dpHftVv4",
-    authDomain: "onelevel-f94a1.firebaseapp.com",
-    projectId: "onelevel-f94a1",
+// Config Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyAtox4-sYkd_YLYzZzjih0oak9dpHftVv4", 
+    authDomain: "onelevel-f94a1.firebaseapp.com", 
+    projectId: "onelevel-f94a1", 
     storageBucket: "onelevel-f94a1.firebasestorage.app",
-    messagingSenderId: "31193753415",
-    appId: "1:31193753415:web:56cd82ea8aeff02bed0e62",
+    messagingSenderId: "31193753415", 
+    appId: "1:31193753415:web:56cd82ea8aeff02bed0e62", 
     measurementId: "G-E6K903XDTZ"
-  };
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+signInAnonymously(auth)
+  .then(() => console.log("Connecté à Firebase !"))
+  .catch(console.error);
 
-  signInAnonymously(auth)
-    .then(() => console.log("Connecté à Firebase !"))
-    .catch(console.error);
+// Fonction pour sauvegarder le score
+async function saveScore(username, score) {
+  if (!username) return;
+  await setDoc(doc(db, "players", username), { username, score });
+}
 
-  window.saveScore = async function(username, score) {
-    if (!username) return;
-    await setDoc(doc(db, "players", username), { username, score });
-  }
+// Score initial
+let party = parseInt(localStorage.getItem("party")) || 0;
+let clic = parseInt(localStorage.getItem("number")) || 0;
+let auto = parseInt(localStorage.getItem("autoClick")) || 0;
+let kill = parseInt(localStorage.getItem("kill")) || 0;
+let score = parseInt(localStorage.getItem("score")) || 0;
+let scorePts = party + (clic/100) + (auto/100) + kill + score;
+document.getElementById("scoreValue").textContent = scorePts + " pts";
 
-  window.getLeaderboard = async function() {
-    const querySnapshot = await getDocs(collection(db, "players"));
-    let players = [];
-    querySnapshot.forEach(doc => players.push(doc.data()));
-    players.sort((a,b) => b.score - a.score);
-    return players;
-  }
+// Connexion utilisateur
+let storedUser = localStorage.getItem("username");
+function updateWelcome(user) {
+  document.getElementById("welcomeMessage").textContent = "Bienvenue, " + user + " !";
+  document.getElementById("usernameInput").style.display = "none";
+  document.getElementById("loginButton").style.display = "none";
+  saveScore(user, scorePts);
+}
+
+// Si déjà connecté
+if (storedUser) updateWelcome(storedUser);
+
+// Bouton connexion
+document.getElementById("loginButton").addEventListener("click", () => {
+  let username = document.getElementById("usernameInput").value.trim();
+  if (!username) return alert("Veuillez entrer un nom d'utilisateur valide.");
+  localStorage.setItem("username", username);
+  updateWelcome(username);
+});
+
+// Mettre à jour le score régulièrement (optionnel)
+setInterval(() => {
+  scorePts = party + (clic/100) + (auto/100) + kill + score;
+  document.getElementById("scoreValue").textContent = scorePts + " pts";
+  if (storedUser) saveScore(storedUser, scorePts);
+}, 5000);
+
 </script>
     <style>
         /* Reset */
@@ -593,71 +623,6 @@
              style="width: 50px; height: 50px; border-radius: 10px;">
     </a>
     </footer>
-<script>
-    // Récupération des données locales
-    let party = parseInt(localStorage.getItem("party")) || 0;
-    let clic = parseInt(localStorage.getItem("number")) || 0;
-    let auto = parseInt(localStorage.getItem("autoClick")) || 0;
-    let kill = parseInt(localStorage.getItem("kill")) || 0;
-    let score = parseInt(localStorage.getItem("score")) || 0;
-
-    // Fonction pour calculer le score actuel
-    function calculateScore() {
-        let party = parseInt(localStorage.getItem("party")) || 0;
-        let clic = parseInt(localStorage.getItem("number")) || 0;
-        let auto = parseInt(localStorage.getItem("autoClick")) || 0;
-        let kill = parseInt(localStorage.getItem("kill")) || 0;
-        let score = parseInt(localStorage.getItem("score")) || 0;
-        return party + (clic / 100) + (auto / 100) + kill + score;
-    }
-
-    // Met à jour l'affichage du score
-    function updateScoreDisplay() {
-        let scorePts = calculateScore();
-        document.getElementById("scoreValue").textContent = scorePts + " pts";
-    }
-
-    // Met à jour le score sur Firebase
-    function updateScoreOnFirebase() {
-        let storedUser = localStorage.getItem("username");
-        if (storedUser) {
-            let scorePts = calculateScore();
-            saveScore(storedUser, scorePts);
-        }
-    }
-
-    // Met à jour le message de bienvenue et sauvegarde le score
-    function updateWelcome(user) {
-        document.getElementById("welcomeMessage").textContent = "Bienvenue, " + user + " !";
-        document.getElementById("usernameInput").style.display = "none";
-        document.getElementById("loginButton").style.display = "none";
-        updateScoreOnFirebase();
-    }
-
-    // Si déjà connecté
-    let storedUser = localStorage.getItem("username");
-    if (storedUser) updateWelcome(storedUser);
-
-    // Connexion utilisateur
-    document.getElementById("loginButton").addEventListener("click", () => {
-        let username = document.getElementById("usernameInput").value.trim();
-        if (username) {
-            localStorage.setItem("username", username);
-            updateWelcome(username);
-        } else {
-            alert("Veuillez entrer un nom d'utilisateur valide.");
-        }
-    });
-
-    // Met à jour le score toutes les 5 secondes
-    setInterval(() => {
-        updateScoreDisplay();
-        updateScoreOnFirebase();
-    }, 5000);
-
-    // Affichage initial du score
-    updateScoreDisplay();
-</script>
 </body>
 </html>
 
