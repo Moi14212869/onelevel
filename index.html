@@ -134,8 +134,6 @@
     color: #ccc;
 }
 
-}
-
 .game-card:hover {
     transform: scale(1.05);
 }
@@ -234,7 +232,26 @@
     font-size: 0.9rem;
     color: #ccc;
 }
+.login input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-right: 10px;
+}
 
+.login button {
+    padding: 10px 20px;
+    background-color: #ff5c5c;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login button:hover {
+    background-color: #e04b4b;
+}
         footer {
             background-color: #272740;
             text-align: center;
@@ -497,7 +514,12 @@
         </a>
     </div>
 </section>
-
+<section class="login" id="login" style="text-align:center; padding:50px; background-color:#272740;">
+    <h2>Connexion</h2>
+    <p id="welcomeMessage">Veuillez entrer votre nom d'utilisateur :</p>
+    <input type="text" id="usernameInput" placeholder="Nom d'utilisateur">
+    <button id="loginButton">Se connecter</button>
+</section>
     <section class="contact" id="contact">
         <h2>Contactez-nous</h2>
 <form action="https://getform.io/f/aroxgnnb" method="POST">
@@ -535,6 +557,35 @@
         let score = parseInt(localStorage.getItem("score")) || 0;
         let pts = party + (clic / 100) + (auto / 100) + kill + score;
         document.getElementById("scoreValue").textContent = pts + " pts";
+        // Vérifie si un utilisateur est déjà connecté
+let storedUser = localStorage.getItem("username");
+
+const loginSection = document.getElementById("login");
+const welcomeMessage = document.getElementById("welcomeMessage");
+const usernameInput = document.getElementById("usernameInput");
+const loginButton = document.getElementById("loginButton");
+
+function updateWelcome(user) {
+    welcomeMessage.textContent = "Bienvenue, " + user + " !";
+    usernameInput.style.display = "none";
+    loginButton.style.display = "none";
+}
+
+// Si utilisateur déjà enregistré
+if (storedUser) {
+    updateWelcome(storedUser);
+}
+
+// Quand l'utilisateur clique sur "Se connecter"
+loginButton.addEventListener("click", () => {
+    let username = usernameInput.value.trim();
+    if (username) {
+        localStorage.setItem("username", username);
+        updateWelcome(username);
+    } else {
+        alert("Veuillez entrer un nom d'utilisateur valide.");
+    }
+});
     </script>
 </body>
 </html>
