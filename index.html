@@ -17,7 +17,7 @@
  <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // Config Firebase
 const firebaseConfig = {
@@ -33,50 +33,60 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// Connexion anonyme à Firebase
 signInAnonymously(auth)
   .then(() => console.log("Connecté à Firebase !"))
   .catch(console.error);
 
-// Fonction pour sauvegarder le score
-async function saveScore(username, score) {
-  if (!username) return;
-  await setDoc(doc(db, "players", username), { username, score });
-}
-
-// Score initial
+// --- Gestion du score ---
 let party = parseInt(localStorage.getItem("party")) || 0;
 let clic = parseInt(localStorage.getItem("number")) || 0;
 let auto = parseInt(localStorage.getItem("autoClick")) || 0;
 let kill = parseInt(localStorage.getItem("kill")) || 0;
 let score = parseInt(localStorage.getItem("score")) || 0;
-let scorePts = party + (clic/100) + (auto/100) + kill + score;
+let scorePts = party + (clic / 100) + (auto / 100) + kill + score;
 document.getElementById("scoreValue").textContent = scorePts + " pts";
 
-// Connexion utilisateur
-let storedUser = localStorage.getItem("username");
-function updateWelcome(user) {
-  document.getElementById("welcomeMessage").textContent = "Bienvenue, " + user + " !";
-  document.getElementById("usernameInput").style.display = "none";
-  document.getElementById("loginButton").style.display = "none";
-  saveScore(user, scorePts);
+// Fonction pour sauvegarder le score dans Firestore
+async function saveScore(username, score) {
+    if (!username) return;
+    await setDoc(doc(db, "players", username), { username, score });
 }
 
-// Si déjà connecté
+// --- Gestion de la connexion utilisateur ---
+let storedUser = localStorage.getItem("username");
+
+function updateWelcome(user) {
+    document.getElementById("welcomeMessage").textContent = "Bienvenue, " + user + " !";
+    document.getElementById("usernameInput").style.display = "none";
+    document.getElementById("loginButton").style.display = "none";
+    saveScore(user, scorePts);
+}
+
+// Si déjà connecté, on met à jour l'interface
 if (storedUser) updateWelcome(storedUser);
 
-// Bouton connexion
-document.getElementById("loginButton").addEventListener("click", () => {
-  let username = document.getElementById("usernameInput").value.trim();
-  if (!username) return alert("Veuillez entrer un nom d'utilisateur valide.");
-  localStorage.setItem("username", username);
-  updateWelcome(username);
+// Bouton connexion avec vérification si le nom est déjà pris
+document.getElementById("loginButton").addEventListener("click", async () => {
+    let username = document.getElementById("usernameInput").value.trim();
+    if (!username) return alert("Veuillez entrer un nom d'utilisateur valide.");
+
+    const userDocRef = doc(db, "players", username);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+        alert("Ce nom d'utilisateur est déjà pris, veuillez en choisir un autre.");
+    } else {
+        localStorage.setItem("username", username);
+        updateWelcome(username);
+    }
 });
 
-// Mettre à jour le score régulièrement (optionnel)
+// Mettre à jour le score régulièrement
 setInterval(() => {
-  scorePts = party + (clic/100) + (auto/100) + kill + score;
-  document.getElementById("scoreValue").textContent = scorePts + " pts";
-  if (storedUser) saveScore(storedUser, scorePts);
+    scorePts = party + (clic / 100) + (auto / 100) + kill + score;
+    document.getElementById("scoreValue").textContent = scorePts + " pts";
+    if (localStorage.getItem("username")) saveScore(localStorage.getItem("username"), scorePts);
 }, 5000);
 
 </script>
