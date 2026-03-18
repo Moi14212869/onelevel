@@ -14,6 +14,42 @@
 
   gtag('config', 'G-BE6NKP5G59');
 </script>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAtox4-sYkd_YLYzZzjih0oak9dpHftVv4",
+    authDomain: "onelevel-f94a1.firebaseapp.com",
+    projectId: "onelevel-f94a1",
+    storageBucket: "onelevel-f94a1.firebasestorage.app",
+    messagingSenderId: "31193753415",
+    appId: "1:31193753415:web:56cd82ea8aeff02bed0e62",
+    measurementId: "G-E6K903XDTZ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  signInAnonymously(auth)
+    .then(() => console.log("Connecté à Firebase !"))
+    .catch(console.error);
+
+  window.saveScore = async function(username, score) {
+    if (!username) return;
+    await setDoc(doc(db, "players", username), { username, score });
+  }
+
+  window.getLeaderboard = async function() {
+    const querySnapshot = await getDocs(collection(db, "players"));
+    let players = [];
+    querySnapshot.forEach(doc => players.push(doc.data()));
+    players.sort((a,b) => b.score - a.score);
+    return players;
+  }
+</script>
     <style>
         /* Reset */
         * {
@@ -389,6 +425,7 @@
         <h1>OneLevel Studio</h1>
         <nav>
             <a href="#about">À propos</a>
+            <a href="#leaderboard">Classement</a>
             <a href="#games">Jeux</a>
             <a href="#apps">Applications</a>
             <a href="#sites">Sites</a>
@@ -410,6 +447,14 @@
         <h2>Votre score</h2>
         <p id="scoreValue">0 pts</p>
     </section>
+    <section class="leaderboard-link" id="leaderboard" style="text-align:center; padding:60px; background-color:#272740;">
+    <h2>Classement des joueurs</h2>
+    <p>
+        <a href="https://moi14212869.github.io/liderboard/" style="color:#ff5c5c; font-weight:bold; text-decoration:underline;">
+            Voir le classement complet
+        </a>
+    </p>
+</section>
 <section class="games" id="games">
     <h2>Nos jeux</h2>
     <a href="https://moi14212869.github.io/Jumpix/" class="game-card" target="_blank">
@@ -554,37 +599,34 @@
         let auto = parseInt(localStorage.getItem("autoClick")) || 0;
         let kill = parseInt(localStorage.getItem("kill")) || 0;
         let score = parseInt(localStorage.getItem("score")) || 0;
-        let pts = party + (clic / 100) + (auto / 100) + kill + score;
-        document.getElementById("scoreValue").textContent = pts + " pts";
-        // Vérifie si un utilisateur est déjà connecté
+        let scorePts = party + (clic / 100) + (auto / 100) + kill + score;
+        document.getElementById("scoreValue").textContent = scorePts + " pts";
 let storedUser = localStorage.getItem("username");
-
-const loginSection = document.getElementById("login");
-const welcomeMessage = document.getElementById("welcomeMessage");
-const usernameInput = document.getElementById("usernameInput");
-const loginButton = document.getElementById("loginButton");
-
 function updateWelcome(user) {
-    welcomeMessage.textContent = "Bienvenue, " + user + " !";
-    usernameInput.style.display = "none";
-    loginButton.style.display = "none";
+  document.getElementById("welcomeMessage").textContent = "Bienvenue, " + user + " !";
+  document.getElementById("usernameInput").style.display = "none";
+  document.getElementById("loginButton").style.display = "none";
+  // Sauvegarder score sur Firebase
+  saveScore(user, scorePts);
 }
 
-// Si utilisateur déjà enregistré
-if (storedUser) {
-    updateWelcome(storedUser);
-}
+// Si déjà connecté
+if (storedUser) updateWelcome(storedUser);
 
-// Quand l'utilisateur clique sur "Se connecter"
-loginButton.addEventListener("click", () => {
-    let username = usernameInput.value.trim();
-    if (username) {
-        localStorage.setItem("username", username);
-        updateWelcome(username);
-    } else {
-        alert("Veuillez entrer un nom d'utilisateur valide.");
-    }
+// Quand l'utilisateur se connecte
+document.getElementById("loginButton").addEventListener("click", () => {
+  let username = document.getElementById("usernameInput").value.trim();
+  if (username) {
+    localStorage.setItem("username", username);
+    updateWelcome(username);
+  } else {
+    alert("Veuillez entrer un nom d'utilisateur valide.");
+  }
 });
+
+// Affichage du score sur le site
+document.getElementById("scoreValue").textContent = scorePts + " pts";
+if (storedUser) saveScore(storedUser, scorePts);
     </script>
 </body>
 </html>
