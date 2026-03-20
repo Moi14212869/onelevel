@@ -6,11 +6,17 @@
 <title>Classement - OneLevel Studio</title>
 <style>
     body { background-color:#1e1e2f; color:#fff; font-family:'Roboto', sans-serif; text-align:center; padding:50px; }
+    .back-button { position: fixed; top: 15px; left: 15px; padding: 10px 16px; background-color: #181826; color: #fff; text-decoration: none; border: 2px solid #ff5c5c; border-radius: 8px; font-family: 'Roboto', sans-serif; font-size: 14px; transition: all 0.2s ease; z-index: 1000; }
+    .back-button:hover { background-color: #ff5c5c; color: #181826; }
     table { margin:0 auto; border-collapse: collapse; width:80%; color:#fff; }
     th, td { padding:10px; border-bottom:2px solid #ff5c5c; text-align:center; }
+    .footer { margin-top: 50px; padding: 20px; border-top: 2px solid #ff5c5c; background-color: #181826; font-size: 14px; }
+    .footer a { color: #ff5c5c; text-decoration: none; font-weight: bold; }
+    .footer a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
+<a href="https://moi14212869.github.io/onelevel/" class="back-button">← Retour</a>
 <h1>Classement des joueurs</h1>
 <table id="leaderboardTable">
     <thead>
@@ -24,7 +30,14 @@
         <tr><td colspan="3">Chargement...</td></tr>
     </tbody>
 </table>
-
+<footer class="footer">
+    <p>
+        © 2026 OneLevel Studio |
+        <a href="https://moi14212869.github.io/onelevel/liderboard/rules/">
+            Comment le score est calculé
+        </a>
+    </p>
+</footer>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
