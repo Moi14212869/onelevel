@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="https://moi14212869.github.io/onelevel/favicon.ico" type="image/x-icon">
+<title>Règles - OneLevel Studio</title>
+
+<style>
+    html, body { height: 100%; margin: 0; }
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background-color:#1e1e2f;
+        color:#fff;
+        font-family:'Roboto', sans-serif;
+        text-align:center;
+    }
+
+    main { flex: 1; padding: 20px; }
+
+    .back-button {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        padding: 10px 16px;
+        background-color: #181826;
+        color: #fff;
+        text-decoration: none;
+        border: 2px solid #ff5c5c;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.2s ease;
+        z-index: 1000;
+    }
+
+    .back-button:hover {
+        background-color: #ff5c5c;
+        color: #181826;
+    }
+
+    .container {
+        width: 80%;
+        margin: auto;
+        text-align: left;
+    }
+
+    h1, h2 {
+        text-align: center;
+        color: #ff5c5c;
+    }
+
+    .card {
+        background-color: #181826;
+        border: 2px solid #ff5c5c;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    ul {
+        line-height: 1.8;
+    }
+
+    .formula {
+        background-color: #1e1e2f;
+        padding: 10px;
+        border-left: 4px solid #ff5c5c;
+        margin: 10px 0;
+        font-family: monospace;
+    }
+
+    .footer {
+        width: 100%;
+        margin-top: auto;
+        padding: 20px;
+        border-top: 2px solid #ff5c5c;
+        background-color: #181826;
+        font-size: 14px;
+        text-align:center;
+    }
+
+    .footer a {
+        color: #ff5c5c;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .footer a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+
+<body>
+
+<a href="https://moi14212869.github.io/onelevel/" class="back-button">← Retour</a>
+
+<main>
+    <div class="container">
+        <h1>Règles de calcul du score</h1>
+
+        <div class="card">
+            <h2>Principe général</h2>
+            <p>
+                Le score d’un joueur est calculé en fonction de plusieurs critères liés à ses performances dans le jeu.
+                L’objectif est de récompenser à la fois la progression, la rapidité et la régularité.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Éléments pris en compte</h2>
+            <ul>
+                <li><strong>Niveau atteint</strong> : plus le niveau est élevé, plus le score augmente.</li>
+                <li><strong>Temps</strong> : terminer rapidement peut donner un bonus.</li>
+                <li><strong>Précision / erreurs</strong> : moins d’erreurs = meilleur score.</li>
+                <li><strong>Bonus spéciaux</strong> : certains niveaux peuvent accorder des multiplicateurs.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Formule simplifiée</h2>
+            <p>Le score est calculé selon une formule du type :</p>
+
+            <div class="formula">
+                Score = (Niveau × 100) + BonusTemps - PénalitéErreurs
+            </div>
+
+            <p>
+                <strong>BonusTemps</strong> augmente si le niveau est terminé rapidement.<br>
+                <strong>PénalitéErreurs</strong> diminue le score en fonction des erreurs commises.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Multiplicateurs</h2>
+            <ul>
+                <li>Combo réussi → multiplicateur appliqué</li>
+                <li>Sans erreur → bonus supplémentaire</li>
+                <li>Niveaux spéciaux → score x1.5 ou x2</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Classement</h2>
+            <p>
+                Le classement est établi en triant les joueurs par score décroissant.
+                En cas d’égalité, d’autres critères peuvent être pris en compte comme le temps ou la date de réalisation.
+            </p>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <p>
+        © 2026 OneLevel Studio |
+        <a href="https://moi14212869.github.io/onelevel/liderboard/rules/">
+            Comment le score est calculé
+        </a>
+    </p>
+</footer>
+
+</body>
+</html>
