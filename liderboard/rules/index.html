@@ -59,6 +59,14 @@
         margin-top: 20px;
     }
 
+    h3 {
+        color: #ff5c5c;
+    }
+
+    .card h3 {
+        margin-top: 20px;
+    }
+    
     ul {
         line-height: 1.8;
     }
@@ -95,7 +103,7 @@
 
 <body>
 
-<a href="https://moi14212869.github.io/onelevel/" class="back-button">← Retour</a>
+<a href="https://moi14212869.github.io/onelevel/liderboard/" class="back-button">← Retour</a>
 
 <main>
     <div class="container">
@@ -104,18 +112,25 @@
         <div class="card">
             <h2>Principe général</h2>
             <p>
-                Le score d’un joueur est calculé en fonction de plusieurs critères liés à ses performances dans le jeu.
-                L’objectif est de récompenser à la fois la progression, la rapidité et la régularité.
+                Le score d’un joueur est calculé en fonction de plusieurs critères dans les différents jeux développé par OneLevel Studio.
             </p>
         </div>
 
         <div class="card">
             <h2>Éléments pris en compte</h2>
+            <h3>Jumpix :</h3>
             <ul>
-                <li><strong>Niveau atteint</strong> : plus le niveau est élevé, plus le score augmente.</li>
-                <li><strong>Temps</strong> : terminer rapidement peut donner un bonus.</li>
-                <li><strong>Précision / erreurs</strong> : moins d’erreurs = meilleur score.</li>
-                <li><strong>Bonus spéciaux</strong> : certains niveaux peuvent accorder des multiplicateurs.</li>
+                <li><strong>Niveaux terminées</strong> : Rapporte dix points par niveaux terminé.</li>
+                <li><strong>Kill</strong> : Rapport un point pour chaque ennemi éliminé.</li>
+            </ul>
+            <h3>Clic :</h3>
+            <ul>
+                <li><strong>Nombre d'améliorations acheté</strong> : Bonus ajusté pour éviter qu’un élément trop facile à obtenir déséquilibre le score..</li>
+            </ul>
+            <h3>Autres :</h3>
+            <p>Certains éléments ou actions spécifiques peuvent également apporter des points bonus.</p>
+            <ul>
+                <li>Mille points ajouté pour l'instalation de Snake et de June Net.</li>
             </ul>
         </div>
 
@@ -134,15 +149,6 @@
         </div>
 
         <div class="card">
-            <h2>Multiplicateurs</h2>
-            <ul>
-                <li>Combo réussi → multiplicateur appliqué</li>
-                <li>Sans erreur → bonus supplémentaire</li>
-                <li>Niveaux spéciaux → score x1.5 ou x2</li>
-            </ul>
-        </div>
-
-        <div class="card">
             <h2>Classement</h2>
             <p>
                 Le classement est établi en triant les joueurs par score décroissant.
@@ -154,10 +160,7 @@
 
 <footer class="footer">
     <p>
-        © 2026 OneLevel Studio |
-        <a href="https://moi14212869.github.io/onelevel/liderboard/rules/">
-            Comment le score est calculé
-        </a>
+        © 2026 OneLevel Studio
     </p>
 </footer>
 
