@@ -32,7 +32,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-
+document.getElementById("Fenyx").addEventListener("click", function() {
+    pts();
+});
 // Connexion anonyme à Firebase
 signInAnonymously(auth)
   .then(() => console.log("Connecté à Firebase !"))
@@ -62,7 +64,10 @@ function updateWelcome(user) {
     document.getElementById("loginButton").style.display = "none";
     saveScore(user, scorePts);
 }
-
+function pts() {
+    score = score + 1;
+    localStorage.setItem("score", String(score));
+}
 // Si déjà connecté, on met à jour l'interface
 if (storedUser) updateWelcome(storedUser);
 
@@ -588,6 +593,7 @@ setInterval(() => {
         <a href="https://moi14212869.github.io/Fenyx/" 
            class="partner-card" 
            target="_blank" 
+           id="Fenyx"
            rel="noopener noreferrer">
            
             <img src="https://moi14212869.github.io/Fenyx/logo2.png" 
