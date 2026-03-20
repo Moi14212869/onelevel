@@ -89,7 +89,7 @@ document.getElementById("loginButton").addEventListener("click", async () => {
 
 // Mettre à jour le score régulièrement
 setInterval(() => {
-    scorePts = party + (clic / 100) + (auto / 100) + kill + score;
+    scorePts = (party * 10) + Math.sqrt(Math.max(0, clic)) + Math.sqrt(Math.max(0, auto)) + kill + score;
     document.getElementById("scoreValue").textContent = scorePts + " pts";
     if (localStorage.getItem("username")) saveScore(localStorage.getItem("username"), scorePts);
 }, 5000);
