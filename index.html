@@ -44,7 +44,7 @@ let clic = parseInt(localStorage.getItem("number")) || 0;
 let auto = parseInt(localStorage.getItem("autoClick")) || 0;
 let kill = parseInt(localStorage.getItem("kill")) || 0;
 let score = parseInt(localStorage.getItem("score")) || 0;
-let scorePts = party + (clic / 100) + (auto / 100) + kill + score;
+let scorePts = party + Math.sqrt(Math.max(0, clic)) + Math.sqrt(Math.max(0, auto)) + kill + score;
 document.getElementById("scoreValue").textContent = scorePts + " pts";
 
 // Fonction pour sauvegarder le score dans Firestore
