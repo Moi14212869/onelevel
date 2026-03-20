@@ -66,6 +66,11 @@
     .card h3 {
         margin-top: 20px;
     }
+
+    .card a {
+        text-decoration: none;
+        color: inherit;
+    }
     
     ul {
         line-height: 1.8;
@@ -127,26 +132,38 @@
             <ul>
                 <li><strong>Nombre d'améliorations acheté</strong> : Bonus ajusté pour éviter qu’un élément trop facile à obtenir déséquilibre le score..</li>
             </ul>
+            <h3>Littelgames :</h3>
+            <ul>
+                <li><strong>Victoire</strong> : Un point par victoire à tout les mini-jeux sauf au Tic-tac-toe.</li>
+            </ul>
+            <h3>Pawtopia :</h3>
+            <ul>
+                <li><strong>Mini-Jeux</strong> : Des points sont ajoutés après chaques mini-jeu.</li>
+            </ul>
             <h3>Autres :</h3>
             <p>Certains éléments ou actions spécifiques peuvent également apporter des points bonus.</p>
             <ul>
                 <li>Mille points ajouté pour l'instalation de Snake et de June Net.</li>
+                <li>Un point ajouté pour chaques visites de notre site partenaire <a href="https://moi14212869.github.io/Fenyx/" id="Fenyx">Fenyx Esport</a> depuis le lien présent sur notre site.</li>
             </ul>
         </div>
 
-        <div class="card">
-            <h2>Formule simplifiée</h2>
-            <p>Le score est calculé selon une formule du type :</p>
+<div class="card">
+    <h2>Formule simplifiée</h2>
+    <p>Le score est calculé en additionnant les points provenant de chaque partie :</p>
 
-            <div class="formula">
-                Score = (Niveau × 100) + BonusTemps - PénalitéErreurs
-            </div>
+    <div class="formula">
+        Score = Jumpix + Clic + Littelgames + Pawtopia + Bonus
+    </div>
 
-            <p>
-                <strong>BonusTemps</strong> augmente si le niveau est terminé rapidement.<br>
-                <strong>PénalitéErreurs</strong> diminue le score en fonction des erreurs commises.
-            </p>
-        </div>
+    <p>
+        <strong>Jumpix</strong> : points des niveaux terminés + kills.<br>
+        <strong>Clic</strong> : points des améliorations achetées.<br>
+        <strong>Littelgames</strong> : points des victoires.<br>
+        <strong>Pawtopia</strong> : points gagnés via les mini-jeux.<br>
+        <strong>Bonus</strong> : points supplémentaires liés aux actions spéciales et partenariats.
+    </p>
+</div>
 
         <div class="card">
             <h2>Classement</h2>
@@ -163,6 +180,15 @@
         © 2026 OneLevel Studio
     </p>
 </footer>
-
+<script>
+    let score = parseInt(localStorage.getItem("score")) || 0;
+    document.getElementById("Fenyx").addEventListener("click", function() {
+        pts();
+    });
+    function pts() {
+        score = score + 1;
+        localStorage.setItem("score", String(score));
+    }
+</script>
 </body>
 </html>
