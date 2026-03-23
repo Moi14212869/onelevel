@@ -106,7 +106,7 @@ document.getElementById("loginButton").addEventListener("click", async () => {
         updateWelcome(username);
     }
 });
-
+phone(username);
 // Mettre à jour le score régulièrement
 setInterval(() => {
     scorePts = Math.round((party * 10) + Math.sqrt(Math.max(0, clic)) + Math.sqrt(Math.max(0, auto)) + kill + score);
