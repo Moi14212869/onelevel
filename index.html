@@ -57,27 +57,7 @@ async function saveScore(username, score) {
 
 // --- Gestion de la connexion utilisateur ---
 let storedUser = localStorage.getItem("username");
-
-async function phone(user) {
-    if (!user) return;
-    if (user=="Dev") {
-    let pNumber = prompt("Entrez votre numéro de téléphone pour sauvegarder votre score");
-    if (!pNumber) return;
-
-    try {
-        const userRef = doc(db, "players", user);
-
-        await setDoc(userRef, {
-            phone: pNumber
-        }, { merge: true }); // IMPORTANT → ne remplace pas les autres données
-
-        alert("Numéro enregistré avec succès !");
-    } catch (error) {
-        console.error(error);
-        alert("Erreur lors de l'enregistrement du numéro.");
-    }
-    }
-}
+     
 function updateWelcome(user) {
     document.getElementById("welcomeMessage").textContent = "Bienvenue, " + user + " !";
     document.getElementById("usernameInput").style.display = "none";
@@ -106,7 +86,6 @@ document.getElementById("loginButton").addEventListener("click", async () => {
         updateWelcome(username);
     }
 });
-phone(username);
 // Mettre à jour le score régulièrement
 setInterval(() => {
     scorePts = Math.round((party * 10) + Math.sqrt(Math.max(0, clic)) + Math.sqrt(Math.max(0, auto)) + kill + score);
