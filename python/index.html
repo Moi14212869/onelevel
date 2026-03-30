@@ -75,14 +75,11 @@ header input {
   </style>
 </head>
 <body>
-
   <header>
     <h1>Téléchargement de scripts Python</h1>
     <input type="text" id="search" placeholder="Rechercher un script..." onkeyup="filterScripts()" />
   </header>
-
   <main class="grid" id="scriptsContainer">
-
     <div class="card">
       <h2>Calculatrice</h2>
       <p>Clculatrice avec interface graphique Tkinter.</p>
@@ -91,20 +88,15 @@ header input {
         <a href="./scripts/calculatrice.exe" download class="exe">⬇ .exe</a>
       </div>
     </div>
-    
+    <div class="card">
+      <h2>Pendu</h2>
+      <p>Jeu de pendu.</p>
+      <div class="buttons">
+        <a href="./scripts/pendu.py" download>⬇ .py</a>
+        <a href="./scripts/pendu.exe" download class="exe">⬇ .exe</a>
+      </div>
+    </div>
   </main>
-
-<script>
-function filterScripts() {
-  const input = document.getElementById("search").value.toLowerCase();
-  const cards = document.querySelectorAll(".card");
-
-  cards.forEach(card => {
-    const text = card.innerText.toLowerCase();
-    card.style.display = text.includes(input) ? "block" : "none";
-  });
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
