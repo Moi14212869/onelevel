@@ -1,1 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clic Game</title>
 
+    <!-- Police Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #00f5ff, #0066ff);
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+        .card {
+            background: white;
+            padding: 40px 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #0066ff;
+        }
+
+        p {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        #count {
+            font-weight: 800;
+            color: #0066ff;
+        }
+        #perClick {
+            font-weight: 800;
+            color: #0066ff;
+        }
+        #button {
+            background: linear-gradient(135deg, #0066ff, #00c6ff);
+            color: white;
+            font-size: 1.4rem;
+            padding: 18px 45px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 12px 25px rgba(0, 102, 255, 0.4);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        #button:hover {
+            transform: scale(1.08);
+        }
+
+        #button:active {
+            transform: scale(0.95);
+            box-shadow: 0 6px 12px rgba(0, 102, 255, 0.3);
+        }
+
+        .click-animation {
+            animation: pop 0.2s ease;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        footer {
+            background-color: #272740;
+            text-align: center;
+            padding: 20px;
+            color: #aaa;
+        }
+        /* Bouton shop */
+.shop-button {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #ff9800, #ff5722);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: right 0.3s ease;
+}
+
+/* Quand le shop est ouvert */
+.shop-button.open {
+    right: 340px; /* largeur du shop + marge */
+}
+
+        #autoClickDisplay {
+            font-weight: 800;
+            color: #0066ff;
+        }
+/* Panneau shop */
+.shop {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 300px;
+    height: 100vh;
+    background: white;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.25);
+    padding: 30px;
+    transition: right 0.3s ease;
+    z-index: 999;
+    overflow-y: auto;
+}
+.shop::-webkit-scrollbar {
+    width: 8px;
+}
+
+.shop::-webkit-scrollbar-thumb {
+    background: #0066ff;
+    border-radius: 10px;
+}
+
+.shop::-webkit-scrollbar-track {
+    background: #eee;
+}
+.shop.open {
+    right: 0;
+}
+
+.shop h2 {
+    margin-top: 0;
+    color: #0066ff;
+}
+
+.shop button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 30px;
+    background: #0066ff;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <div class="main">
+    <div class="card">
+        <h1>Clic 🎯</h1>
+        <p>Clics : <br><span id="count">0</span></p>
+        <p>Par clic : <br><span id="perClick">1</span></p>
+        <p>Par seconde : <br><span id="autoClickDisplay">0</span></p>
+        <button id="button" onclick="add()">CLIC</button>
+    </div>
+    </div>
+    <button class="shop-button" onclick="toggleShop()">Shop 🛒</button>
+
+<div class="shop" id="shop">
+    <h2>🛒 Shop</h2>
+    <button onclick="addClic(1, 100)">+1 clic / clic (100)</button>
+    <button onclick="upgradeAutoClick(1, 500)">+1 auto-clic / sec (500)</button>
+    <button onclick="addClic(10, 950)">+10 clic / clic (950)</button>
+    <button onclick="upgradeAutoClick(10, 4950)">+10 auto-clic / sec (4950)</button>
+    <button onclick="addClic(100, 9450)">+100 clic / clic (9450)</button>
+    <button onclick="upgradeAutoClick(100, 49950)">+100 auto-clic / sec (49950)</button>
+    <button onclick="addClic(1000, 94440)">+1000 clic / clic (94440)</button>
+    <button onclick="upgradeAutoClick(1000, 499950)">+1000 auto-clic / sec (499950)</button>
+    <button onclick="addClic(10000, 944440)">+10000 clic / clic (944440)</button>
+    <button onclick="upgradeAutoClick(10000, 4999950)">+10000 auto-clic / sec (4999950)</button>
+</div>
+    <footer>
+        &copy; 2026 <a href="https://moi14212869.github.io/onelevel/" target="_blank">OneLevel Studio</a>. Tous droits réservés.
+    </footer>
+    <audio id="pop" src="pop.mp3" preload="auto"></audio>
+    <audio id="buy" src="buy.mp3" preload="auto"></audio>
+    <script>
+        let autoClick = parseInt(localStorage.getItem("autoClick")) || 0;
+        const autoClickInterval = 1000;
+        const count = document.getElementById("count");
+        const pop = document.getElementById("pop");
+        const buy = document.getElementById("buy");
+        const button = document.getElementById("button");
+        const perClick = document.getElementById("perClick");
+        
+        let clics = localStorage.getItem("clics");
+        let number = parseInt(localStorage.getItem("number")) || 1;
+        perClick.textContent = number;
+        clics = clics ? parseInt(clics) : 0;
+        count.textContent = clics;
+
+        function add() {
+            clics = clics + number;
+            count.textContent = clics;
+
+            // Animation
+            button.classList.remove("click-animation");
+            void button.offsetWidth;
+            button.classList.add("click-animation");
+
+            // Son
+            const clickSound = pop.cloneNode();
+            clickSound.play();
+
+            localStorage.setItem("clics", clics);
+        }
+        setInterval(() => {
+    if (autoClick > 0) {
+        clics += autoClick;
+        count.textContent = clics;
+        localStorage.setItem("clics", clics);
+    }
+}, autoClickInterval);
+
+const shop = document.getElementById("shop");
+const shopButton = document.querySelector(".shop-button");
+
+function toggleShop() {
+    shop.classList.toggle("open");
+    shopButton.classList.toggle("open");
+}
+function addClic(amount, prix) {
+    if (clics >= prix) {
+        clics -= prix;
+        number=number+amount;
+
+        count.textContent = clics;
+        perClick.textContent = number;
+
+        const buySound = buy.cloneNode();
+        buySound.play();
+        
+        localStorage.setItem("clics", clics);
+        localStorage.setItem("number", number);
+    } else {
+        alert("Pas assez de clics !");
+    }
+}
+        function upgradeAutoClick(auto, cost) {
+    if (clics >= cost) {
+        clics -= cost;
+        autoClick += auto;
+
+        count.textContent = clics;
+        document.getElementById("autoClickDisplay").textContent = autoClick;
+
+        buy.cloneNode().play();
+
+        localStorage.setItem("clics", clics);
+        localStorage.setItem("autoClick", autoClick);
+    } else {
+        alert("Pas assez de clics !");
+    }
+}
+
+// Mettre à jour l'affichage au chargement
+document.getElementById("autoClickDisplay").textContent = autoClick;
+
+    </script>
+</body>
+</html>
