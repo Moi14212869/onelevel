@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>June OS</title>
+<link rel="icon" href="logo.ico" type="image/x-icon">
+<style>
+    body {
+        background-color: #000;
+        color: #00ff66;
+        font-family: Consolas, "Courier New", monospace;
+        padding: 20px;
+    }
+
+    .terminal {
+        max-width: 900px;
+        margin: auto;
+        border: 2px solid #00ff66;
+        padding: 20px;
+        box-shadow: 0 0 20px #00ff66;
+    }
+
+    .title {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .bar {
+        color: #00ff66;
+    }
+
+    a, button {
+        color: #00ff66;
+        background: black;
+        border: 1px solid #00ff66;
+        padding: 6px 12px;
+        font-family: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+    a:hover, button:hover {
+        background: #00ff66;
+        color: black;
+    }
+
+    .cmd {
+        margin-top: 15px;
+    }
+
+    .prompt::before {
+        content: "JuneOS> ";
+        color: #00ff66;
+    }
+
+    .footer {
+        margin-top: 30px;
+        font-size: 0.8em;
+        opacity: 0.8;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="terminal">
+    <div class="title">
+        ---------------------------------<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;June OS<br>
+        ---------------------------------
+    </div>
+
+
+    <div class="cmd">
+        <div class="prompt">
+            OS batch expérimental inspiré d’une interface console.
+        </div>
+    </div>
+
+    <div class="cmd">
+        <div class="prompt">
+            Version actuelle : <strong>v1.1</strong>
+        </div>
+    </div>
+
+  <div class="cmd">
+      <div class="prompt">
+          Pensez à consulter régilièrement ce site pour être au courant des mises à jours
+      </div>
+  </div>
+  
+    <div class="cmd">
+        <div class="prompt">
+            Télécharger June OS :
+        </div>
+        <br>
+        <a onclick="pts()" href="Setup_JuneOs.exe" download>Télécharger JuneOS v1.1</a>
+    </div>
+
+    <div class="cmd">
+        <div class="prompt">
+            Commandes disponibles :
+        </div>
+        <pre>
+RUN        Lance une application
+SHOW       Affiche un texte
+VAR        Crée une variable
+MODE       Change le mode
+CALCUL     Calcul arithmétique
+QUIT       Quitte June OS
+HELP       Liste les commandes
+        </pre>
+    </div>
+    <div class="cmd">
+        <div class="prompt">
+            Créer un utilisateur :
+        </div>
+        <pre>
+Taper user comme nom d'utilisateur lors du lancement.
+        </pre>
+    </div>
+    <div class="footer">
+        &copy; 2026 <a href="https://moi14212869.github.io/onelevel/" target="_blank">OneLevel Studio</a>. Tous droits réservés.
+    </div>
+</div>
+  <script>
+let juneos = parseInt(localStorage.getItem("juneos")) || 0;
+let score = parseInt(localStorage.getItem("score")) || 0;
+function pts() {
+    if (juneos === 0) {
+        juneos = 1;
+        score += 1000;
+        localStorage.setItem("score", String(score));
+        localStorage.setItem("juneos", String(juneos));
+    }
+}
+</script>
+</body>
+</html>
