@@ -125,17 +125,6 @@ Taper user comme nom d'utilisateur lors du lancement.
         &copy; 2026 <a href="https://moi14212869.github.io/onelevel/" target="_blank">OneLevel Studio</a>. Tous droits réservés.
     </div>
 </div>
-  <script>
-let juneos = parseInt(localStorage.getItem("juneos")) || 0;
-let score = parseInt(localStorage.getItem("score")) || 0;
-function pts() {
-    if (juneos === 0) {
-        juneos = 1;
-        score += 1000;
-        localStorage.setItem("score", String(score));
-        localStorage.setItem("juneos", String(juneos));
-    }
-}
-</script>
+<script src="script.js"></script>
 </body>
 </html>
