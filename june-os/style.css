@@ -1,0 +1,46 @@
+body {
+  background-color: #000;
+  color: #00ff66;
+  font-family: Consolas, "Courier New", monospace;
+  padding: 20px;
+}
+.terminal {
+  max-width: 900px;
+  margin: auto;
+  border: 2px solid #00ff66;
+  padding: 20px;
+  box-shadow: 0 0 20px #00ff66;
+}
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.bar {
+  color: #00ff66;
+}
+a, button {
+  color: #00ff66;
+  background: black;
+  border: 1px solid #00ff66;
+  padding: 6px 12px;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 10px;
+}
+a:hover, button:hover {
+  background: #00ff66;
+  color: black;
+}
+.cmd {
+  margin-top: 15px;
+}
+.prompt::before {
+  content: "JuneOS> ";
+  color: #00ff66;
+}
+.footer {
+  margin-top: 30px;
+  font-size: 0.8em;
+  opacity: 0.8;
+}
