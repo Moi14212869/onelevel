@@ -1,4 +1,3 @@
-
         let autoClick = parseInt(localStorage.getItem("autoClick")) || 0;
         const autoClickInterval = 1000;
         const count = document.getElementById("count");
@@ -79,5 +78,3 @@ function addClic(amount, prix) {
 
 // Mettre à jour l'affichage au chargement
 document.getElementById("autoClickDisplay").textContent = autoClick;
-
-    </script>
