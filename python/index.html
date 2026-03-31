@@ -1,78 +1,10 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Scripts Python Téléchargeables</title>
-  <style>
-    body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f4f4f4;
-  color: #333;
-}
-
-header {
-  text-align: center;
-  padding: 20px;
-  background: #222;
-  color: white;
-}
-
-header input {
-  margin-top: 10px;
-  padding: 10px;
-  width: 60%;
-  border-radius: 8px;
-  border: none;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-.card {
-  background: white;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.card h2 {
-  margin-top: 0;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-}
-
-.buttons a {
-  text-decoration: none;
-  padding: 10px;
-  border-radius: 8px;
-  background: #007bff;
-  color: white;
-  flex: 1;
-  text-align: center;
-  margin-right: 5px;
-}
-
-.buttons a.exe {
-  background: #28a745;
-  margin-right: 0;
-}
-
-.buttons a:hover {
-  opacity: 0.8;
-}
-
-  </style>
+  <link href="script.css" rel="stylesheet" />
 </head>
 <body>
   <header>
@@ -82,7 +14,7 @@ header input {
   <main class="grid" id="scriptsContainer">
     <div class="card">
       <h2>Calculatrice</h2>
-      <p>Clculatrice avec interface graphique Tkinter.</p>
+      <p>Calculatrice avec interface graphique Tkinter.</p>
       <div class="buttons">
         <a href="./scripts/calculatrice.py" download>⬇ .py</a>
         <a href="./scripts/calculatrice.exe" download class="exe">⬇ .exe</a>
