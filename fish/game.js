@@ -10,29 +10,49 @@ const fish = {
     direction: 'right'
 };
 
-const keys = {};
+// Une seule touche active à la fois
+let activeKey = null;
 
 // Gestion clavier
-window.addEventListener('keydown', e => keys[e.key] = true);
-window.addEventListener('keyup', e => keys[e.key] = false);
+window.addEventListener('keydown', e => {
+    // Ne changer que si ce n'est pas déjà la touche active
+    if (activeKey !== e.key) {
+        activeKey = e.key;
+    }
+});
+
+window.addEventListener('keyup', e => {
+    // Si on relâche la touche active, plus de touche active
+    if (activeKey === e.key) activeKey = null;
+});
 
 // Mise à jour du poisson
 function update() {
-    if (keys['ArrowUp'] && fish.y - fish.radius > 0) {
-        fish.y -= fish.speed;
-        fish.direction = 'up';
-    }
-    if (keys['ArrowDown'] && fish.y + fish.radius < canvas.height) {
-        fish.y += fish.speed;
-        fish.direction = 'down';
-    }
-    if (keys['ArrowLeft'] && fish.x - fish.radius > 0) {
-        fish.x -= fish.speed;
-        fish.direction = 'left';
-    }
-    if (keys['ArrowRight'] && fish.x + fish.radius < canvas.width) {
-        fish.x += fish.speed;
-        fish.direction = 'right';
+    switch(activeKey) {
+        case 'ArrowUp':
+            if (fish.y - fish.radius > 0) {
+                fish.y -= fish.speed;
+                fish.direction = 'up';
+            }
+            break;
+        case 'ArrowDown':
+            if (fish.y + fish.radius < canvas.height) {
+                fish.y += fish.speed;
+                fish.direction = 'down';
+            }
+            break;
+        case 'ArrowLeft':
+            if (fish.x - fish.radius > 0) {
+                fish.x -= fish.speed;
+                fish.direction = 'left';
+            }
+            break;
+        case 'ArrowRight':
+            if (fish.x + fish.radius < canvas.width) {
+                fish.x += fish.speed;
+                fish.direction = 'right';
+            }
+            break;
     }
 }
 
