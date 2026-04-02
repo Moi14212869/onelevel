@@ -1,0 +1,169 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Fenêtre en haut à gauche : Horloge + Météo */
+.top-left-widget {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 15px 20px;
+    color: white;
+    z-index: 1000;
+    min-width: 200px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.top-left-widget #clock {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.top-left-widget .weather-box {
+    font-size: 0.9em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.top-left-widget .weather-animation {
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+/* Fenêtre en haut à droite : Todo List */
+.todo-widget {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 15px 20px;
+    color: white;
+    z-index: 1000;
+    min-width: 220px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.todo-header h2 {
+    font-size: 1em;
+    margin: 0;
+}
+
+.todo-toggle-btn {
+    background: #00c6ff;
+    border: none;
+    border-radius: 8px;
+    padding: 2px 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.todo-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.todo-input input {
+    flex: 1;
+    padding: 6px;
+    border-radius: 8px;
+    border: none;
+}
+
+.todo-input button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 8px;
+    background: #00c6ff;
+    color: white;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+li {
+    background: rgba(255,255,255,0.2);
+    padding: 6px;
+    border-radius: 8px;
+    margin-top: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li button {
+    background: red;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Dashboard centré : mini traitement de texte */
+.dashboard {
+    width: 90%;
+    max-width: 900px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+textarea#textEditor {
+    width: 100%;
+    height: 300px;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    font-size: 1em;
+    resize: vertical;
+    margin-bottom: 15px;
+}
+
+button#saveText {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #00c6ff;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+button#saveText:hover {
+    background: #00a0d0;
+}
