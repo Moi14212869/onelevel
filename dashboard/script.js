@@ -1,0 +1,132 @@
+// =======================
+// Toggle Todo List
+// =======================
+function toggleTodoList() {
+    const content = document.getElementById("todoContent");
+    const btn = document.getElementById("toggleBtn");
+    if (content.style.display === "none") {
+        content.style.display = "block";
+        btn.innerText = "▼";
+    } else {
+        content.style.display = "none";
+        btn.innerText = "▲";
+    }
+}
+
+// =======================
+// Horloge
+// =======================
+function updateClock() {
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const date = now.toLocaleDateString('fr-FR', options);
+    const time = now.toLocaleTimeString('fr-FR');
+    document.getElementById("clock").innerHTML = `${date}<br>${time}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// =======================
+// Todo List (LocalStorage)
+// =======================
+const taskInput = document.getElementById("taskInput");
+const taskList = document.getElementById("taskList");
+
+function saveTasks() {
+    localStorage.setItem("tasks", taskList.innerHTML);
+}
+
+function loadTasks() {
+    taskList.innerHTML = localStorage.getItem("tasks") || "";
+}
+loadTasks();
+
+function addTask() {
+    if (taskInput.value.trim() === "") return;
+
+    const li = document.createElement("li");
+    li.innerHTML = `
+        ${taskInput.value}
+        <button onclick="deleteTask(this)">X</button>
+    `;
+    taskList.appendChild(li);
+    taskInput.value = "";
+    saveTasks();
+}
+
+function deleteTask(button) {
+    button.parentElement.remove();
+    saveTasks();
+}
+
+// =======================
+// Météo dynamique + auto refresh
+// =======================
+const weatherBox = document.getElementById("weather");
+let userLat = null;
+let userLon = null;
+
+function getWeatherDescription(code) {
+    if (code === 0) return { icon: "☀️", class: "sun", text: "Ciel dégagé" };
+    if (code >= 1 && code <= 3) return { icon: "☁️", class: "cloud", text: "Nuageux" };
+    if (code >= 51 && code <= 67) return { icon: "🌧️", class: "rain", text: "Pluie" };
+    if (code >= 71 && code <= 77) return { icon: "❄️", class: "cloud", text: "Neige" };
+    return { icon: "🌤️", class: "cloud", text: "Variable" };
+}
+
+function fetchWeather() {
+    if (!userLat || !userLon) return;
+
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${userLat}&longitude=${userLon}&current_weather=true`)
+    .then(response => response.json())
+    .then(data => {
+        const weather = data.current_weather;
+        const weatherInfo = getWeatherDescription(weather.weathercode);
+
+        weatherBox.innerHTML = `
+            <div class="weather-animation ${weatherInfo.class}">
+                ${weatherInfo.icon}
+            </div>
+            🌡 ${weather.temperature}°C <br>
+            💨 Vent : ${weather.windspeed} km/h <br>
+            📌 ${weatherInfo.text}
+        `;
+    })
+    .catch(() => {
+        weatherBox.innerText = "Impossible de charger la météo.";
+    });
+}
+
+function getLocation() {
+    if (navigator.geolocation) {
+        weatherBox.innerText = "Localisation en cours...";
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                userLat = position.coords.latitude;
+                userLon = position.coords.longitude;
+                fetchWeather();
+                setInterval(fetchWeather, 600000); // toutes les 10 minutes
+            },
+            () => {
+                weatherBox.innerText = "Localisation refusée ❌";
+            }
+        );
+    } else {
+        weatherBox.innerText = "Géolocalisation non supportée.";
+    }
+}
+
+getLocation();
+
+// =======================
+// Enregistrer le texte en .txt
+// =======================
+function saveAsTxt() {
+    const text = document.getElementById("textEditor").value;
+    const blob = new Blob([text], { type: "text/plain" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "texte.txt";
+    a.click();
+    URL.revokeObjectURL(a.href);
+}
