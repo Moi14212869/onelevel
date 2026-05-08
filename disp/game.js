@@ -3,20 +3,20 @@ class MainScene extends Phaser.Scene {
     super("MainScene");
   }
 
-  preload() {}
-
   create() {
     // --- Player ---
     this.player = this.add.rectangle(100, 300, 30, 30, 0x00ff00);
     this.physics.add.existing(this.player);
-    this.player.body.setCollideWorldBounds(true);
 
-    // --- Platforms group ---
+    this.player.body.setCollideWorldBounds(true);
+    this.player.body.setGravityY(600); // ✅ GRAVITÉ AJOUTÉE
+
+    // --- Platforms ---
     this.platforms = this.physics.add.staticGroup();
 
-    this.platforms.add(this.add.rectangle(200, 400, 150, 20, 0xffffff));
-    this.platforms.add(this.add.rectangle(400, 300, 150, 20, 0xffffff));
-    this.platforms.add(this.add.rectangle(600, 200, 150, 20, 0xffffff));
+    this.platforms.add(this.add.rectangle(200, 500, 150, 20, 0xffffff));
+    this.platforms.add(this.add.rectangle(400, 400, 150, 20, 0xffffff));
+    this.platforms.add(this.add.rectangle(600, 300, 150, 20, 0xffffff));
 
     this.platforms.children.iterate(p => {
       this.physics.add.existing(p, true);
@@ -28,45 +28,37 @@ class MainScene extends Phaser.Scene {
     // --- Controls ---
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    // --- State ---
-    this.isMoving = false;
-
-    // Camera smoothing optional feel
+    // --- Camera ---
     this.cameras.main.startFollow(this.player);
   }
 
   update() {
-    const speed = 160;
+    const speed = 180;
     const body = this.player.body;
 
-    body.setVelocity(0);
+    // Reset horizontal velocity
+    body.setVelocityX(0);
 
-    // Movement
+    // Movement left/right
     if (this.cursors.left.isDown) {
       body.setVelocityX(-speed);
     }
     if (this.cursors.right.isDown) {
       body.setVelocityX(speed);
     }
-    if (this.cursors.up.isDown) {
-      body.setVelocityY(-speed);
-    }
-    if (this.cursors.down.isDown) {
-      body.setVelocityY(speed);
+
+    // Jump (simple platformer)
+    if (this.cursors.up.isDown && body.blocked.down) {
+      body.setVelocityY(-400);
     }
 
-    // Detect movement
+    // Detect movement (important: include vertical velocity)
     const moving =
-      body.velocity.x !== 0 || body.velocity.y !== 0;
+      body.velocity.x !== 0 ||
+      Math.abs(body.velocity.y) > 1;
 
     // --- Core mechanic ---
-    if (moving) {
-      // WORLD INVISIBLE
-      this.setWorldVisible(false);
-    } else {
-      // WORLD VISIBLE
-      this.setWorldVisible(true);
-    }
+    this.setWorldVisible(!moving);
   }
 
   setWorldVisible(state) {
@@ -76,7 +68,7 @@ class MainScene extends Phaser.Scene {
   }
 }
 
-// --- Game config ---
+// --- Config ---
 const config = {
   type: Phaser.AUTO,
   width: 800,
@@ -85,11 +77,11 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 0 },
+      gravity: { y: 800 }, // ✅ GRAVITÉ MONDE
       debug: false
     }
   },
   scene: MainScene
 };
 
-const game = new Phaser.Game(config);
+new Phaser.Game(config);
