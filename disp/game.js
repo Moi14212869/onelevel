@@ -4,24 +4,32 @@ class MenuScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.text(250, 150, "INVISIBLE WORLD", {
+    this.add.text(250, 120, "INVISIBLE WORLD", {
       fontSize: "32px",
       fill: "#ffffff"
     });
 
-    this.add.text(280, 250, "Appuie sur 1 : Niveau 1", {
-      fontSize: "20px",
+    this.add.text(240, 180, "Clique pour choisir un niveau", {
+      fontSize: "18px",
       fill: "#aaaaaa"
     });
 
-    this.add.text(280, 300, "Appuie sur 2 : (à venir)", {
+    // --- Bouton Niveau 1 ---
+    const level1Btn = this.add.rectangle(400, 280, 200, 50, 0x3333ff)
+      .setInteractive({ useHandCursor: true });
+
+    const level1Text = this.add.text(355, 268, "Niveau 1", {
       fontSize: "20px",
-      fill: "#555555"
+      fill: "#ffffff"
     });
 
-    this.input.keyboard.on("keydown-ONE", () => {
+    level1Btn.on("pointerdown", () => {
       this.scene.start("Level1");
     });
+
+    // hover effect
+    level1Btn.on("pointerover", () => level1Btn.setFillStyle(0x5555ff));
+    level1Btn.on("pointerout", () => level1Btn.setFillStyle(0x3333ff));
   }
 }
 
@@ -52,11 +60,18 @@ class Level1 extends Phaser.Scene {
     // --- Controls ---
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    // --- Escape to menu ---
-    this.input.keyboard.on("keydown-ESC", () => {
+    // --- Bouton retour menu ---
+    const backBtn = this.add.text(10, 10, "← Menu", {
+      fontSize: "18px",
+      fill: "#ffffff",
+      backgroundColor: "#444"
+    }).setInteractive({ useHandCursor: true });
+
+    backBtn.on("pointerdown", () => {
       this.scene.start("MenuScene");
     });
 
+    // --- Camera ---
     this.cameras.main.startFollow(this.player);
   }
 
@@ -87,7 +102,7 @@ class Level1 extends Phaser.Scene {
       body.velocity.x !== 0 ||
       Math.abs(body.velocity.y) > 1;
 
-    // --- Core mechanic ---
+    // --- mécanique centrale ---
     this.setWorldVisible(!moving);
   }
 
@@ -98,7 +113,7 @@ class Level1 extends Phaser.Scene {
   }
 }
 
-// ---------------- GAME CONFIG ----------------
+// ---------------- CONFIG ----------------
 
 const config = {
   type: Phaser.AUTO,
