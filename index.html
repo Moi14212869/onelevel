@@ -14,86 +14,6 @@
 
   gtag('config', 'G-BE6NKP5G59');
 </script>
- <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-// Config Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyAtox4-sYkd_YLYzZzjih0oak9dpHftVv4", 
-    authDomain: "onelevel-f94a1.firebaseapp.com", 
-    projectId: "onelevel-f94a1", 
-    storageBucket: "onelevel-f94a1.firebasestorage.app",
-    messagingSenderId: "31193753415", 
-    appId: "1:31193753415:web:56cd82ea8aeff02bed0e62", 
-    measurementId: "G-E6K903XDTZ"
-};
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-document.getElementById("Fenyx").addEventListener("click", function() {
-    pts();
-});
-// Connexion anonyme à Firebase
-signInAnonymously(auth)
-  .then(() => console.log("Connecté à Firebase !"))
-  .catch(console.error);
-
-// --- Gestion du score ---
-let party = parseInt(localStorage.getItem("party")) || 0;
-let clic = parseInt(localStorage.getItem("number")) || 0;
-let auto = parseInt(localStorage.getItem("autoClick")) || 0;
-let kill = parseInt(localStorage.getItem("kill")) || 0;
-let score = parseInt(localStorage.getItem("score")) || 0;
-let scorePts = Math.round((party * 10) + Math.sqrt(Math.max(0, clic)) + Math.sqrt(Math.max(0, auto)) + kill + score);
-document.getElementById("scoreValue").textContent = scorePts + " pts";
-
-// Fonction pour sauvegarder le score dans Firestore
-async function saveScore(username, score) {
-    if (!username) return;
-    await setDoc(doc(db, "players", username), { username, score });
-}
-
-// --- Gestion de la connexion utilisateur ---
-let storedUser = localStorage.getItem("username");
-     
-function updateWelcome(user) {
-    document.getElementById("welcomeMessage").textContent = "Bienvenue, " + user + " !";
-    document.getElementById("usernameInput").style.display = "none";
-    document.getElementById("loginButton").style.display = "none";
-    saveScore(user, scorePts);
-}
-function pts() {
-    score = score + 1;
-    localStorage.setItem("score", String(score));
-}
-// Si déjà connecté, on met à jour l'interface
-if (storedUser) updateWelcome(storedUser);
-
-// Bouton connexion avec vérification si le nom est déjà pris
-document.getElementById("loginButton").addEventListener("click", async () => {
-    let username = document.getElementById("usernameInput").value.trim();
-    if (!username) return alert("Veuillez entrer un nom d'utilisateur valide.");
-
-    const userDocRef = doc(db, "players", username);
-    const userDocSnap = await getDoc(userDocRef);
-
-    if (userDocSnap.exists()) {
-        alert("Ce nom d'utilisateur est déjà pris, veuillez en choisir un autre.");
-    } else {
-        localStorage.setItem("username", username);
-        updateWelcome(username);
-    }
-});
-// Mettre à jour le score régulièrement
-setInterval(() => {
-    scorePts = Math.round((party * 10) + Math.sqrt(Math.max(0, clic)) + Math.sqrt(Math.max(0, auto)) + kill + score);
-    document.getElementById("scoreValue").textContent = scorePts + " pts";
-    if (localStorage.getItem("username")) saveScore(localStorage.getItem("username"), scorePts);
-}, 5000);
-
-</script>
     <style>
         /* Reset */
         * {
@@ -487,10 +407,6 @@ setInterval(() => {
         <h2>À propos de nous</h2>
         <p>OneLevel Studio est un studio de développement de jeux vidéo uniques et immersifs. Nous nous sommes également diversifiés dans le web, en créant des projets expérimentaux comme des outils en ligne ou des sites interactifs</p>
     </section>
-    <section class="score">
-        <h2>Votre score</h2>
-        <p id="scoreValue">0 pts</p>
-    </section>
 <section class="games" id="games">
     <h2>Nos jeux</h2>
     <a href="https://moi14212869.github.io/Jumpix/" class="game-card" target="_blank">
@@ -605,12 +521,6 @@ setInterval(() => {
     <button type="submit">Envoyer</button>
 </form>
     </section>
-<section class="login" id="login" style="text-align:center; padding:50px; background-color:#1e1e2f;">
-    <h2>Connexion</h2>
-    <p id="welcomeMessage">Veuillez entrer votre nom d'utilisateur :</p>
-    <input type="text" id="usernameInput" placeholder="Nom d'utilisateur">
-    <button id="loginButton">Se connecter</button>
-</section>
     <footer>
         &copy; 2026 OneLevel Studio. Tous droits réservés.
         <br><br>
