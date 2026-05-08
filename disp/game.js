@@ -4,30 +4,31 @@ class MenuScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.text(250, 120, "INVISIBLE WORLD", {
+    this.add.text(400, 120, "INVISIBLE WORLD", {
       fontSize: "32px",
       fill: "#ffffff"
-    });
+    }).setOrigin(0.5);
 
-    this.add.text(240, 180, "Clique pour choisir un niveau", {
+    this.add.text(400, 180, "Clique pour choisir un niveau", {
       fontSize: "18px",
       fill: "#aaaaaa"
-    });
+    }).setOrigin(0.5);
 
     // --- Bouton Niveau 1 ---
-    const level1Btn = this.add.rectangle(400, 280, 200, 50, 0x3333ff)
+    const level1Btn = this.add.rectangle(400, 360, 220, 60, 0x3333ff)
       .setInteractive({ useHandCursor: true });
 
-    const level1Text = this.add.text(355, 268, "Niveau 1", {
-      fontSize: "20px",
+    const level1Text = this.add.text(0, 0, "Niveau 1", {
+      fontSize: "22px",
       fill: "#ffffff"
     });
+
+    Phaser.Display.Align.In.Center(level1Text, level1Btn);
 
     level1Btn.on("pointerdown", () => {
       this.scene.start("Level1");
     });
 
-    // hover effect
     level1Btn.on("pointerover", () => level1Btn.setFillStyle(0x5555ff));
     level1Btn.on("pointerout", () => level1Btn.setFillStyle(0x3333ff));
   }
@@ -60,12 +61,15 @@ class Level1 extends Phaser.Scene {
     // --- Controls ---
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    // --- Bouton retour menu ---
-    const backBtn = this.add.text(10, 10, "← Menu", {
+    // --- Bouton retour menu (bas gauche) ---
+    const backBtn = this.add.text(10, 580, "← Menu", {
       fontSize: "18px",
       fill: "#ffffff",
-      backgroundColor: "#444"
-    }).setInteractive({ useHandCursor: true });
+      backgroundColor: "#222",
+      padding: { left: 10, right: 10, top: 5, bottom: 5 }
+    })
+    .setInteractive({ useHandCursor: true })
+    .setOrigin(0, 1);
 
     backBtn.on("pointerdown", () => {
       this.scene.start("MenuScene");
